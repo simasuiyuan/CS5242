@@ -26,13 +26,14 @@ dependencies:
   - networkx=2.6.2
   - seaborn=0.11.1
 
-  - pytorch=1.9.0 # DL 
-  - torchvision=0.10.0 # CV 
-  - rdkit=2020.09.1.0 # Molecule
-  - dgl=0.7.0 # DGL
+  - pip:
+    - pytorch # DL 
+    - torchvision # CV 
+    - rdkit=2020.09.1.0 # Molecule
+    - dgl=0.7.0 # DGL
 
-  - gym=0.18.0 # RL
-  - tensorboardx=2.2 # TSP
-  - fastprogress=1.0.0 # TSP
+    - gym=0.18.0 # RL
+    - tensorboardx=2.2 # TSP
+    - fastprogress=1.0.0 # TSP
 
   
