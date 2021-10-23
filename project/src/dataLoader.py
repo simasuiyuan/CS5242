@@ -9,7 +9,7 @@ class dataLoaderABC(ABC):
     def __init__(self, file_directory: Union[str, pathlib.Path, os.DirEntry], fileType: str='image'):
         self.fileType = fileType if fileType in ["image", 'csv', 'excel'] else None
         self.file_directory: Union[str, pathlib.Path, os.DirEntry] = file_directory
-        self.file_list: List[pathlib.Path]
+        self.file_list: List[pathlib.Path] = []
         self.file_filter: Callable = lambda: True
 
     @abstractclassmethod
@@ -29,17 +29,23 @@ class dataLoader(dataLoaderABC):
     def __init__(self,file_directory: Union[str, pathlib.Path, os.DirEntry]):
         super().__init__(file_directory)
     
-    def LoadFileList(self, file_type:str=None) -> List[pathlib.Path]:
+    def LoadFileList(self, file_type:str=None, fileNameList:List=None) -> List[pathlib.Path]:
         dir_path = pathlib.Path(self.file_directory)
         if not dir_path.is_dir():
             raise TypeError(f'Not a valid directory: {dir_path}')
         
         if self.fileType is not None:  
             if self.fileType == "image": self.file_filter = self.check_file_is_image
-            
-        self.file_list = [
-            pathlib.Path(file) for file in os.scandir(dir_path) if self.file_filter(file)
-        ]
+        
+        if fileNameList is None:
+            self.file_list = [
+                pathlib.Path(file) for file in os.scandir(dir_path) if self.file_filter(file)
+            ]
+        else:
+            for fileName in fileNameList:
+                file_path = pathlib.Path(dir_path) / fileName
+                if file_path.exists() and self.file_filter(file_path):
+                    self.file_list.append(file_path)
         return self.file_list
 
     def check_file_is_image(

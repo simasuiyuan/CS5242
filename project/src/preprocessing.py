@@ -22,3 +22,18 @@ def imadjust(x,min,max,new_min,new_max,gamma=1):
     # When gamma is not equal to 1, then the transformation is not linear.
     y = (((x - min) / (max - min)) ** gamma) * (new_max - new_min) + new_min
     return y
+
+
+def imagePaddingByShape(
+    image:np.ndarray,
+    shape:tuple,
+    padding_mode = "constant" #"constant", "edge", "linear_ramp", "maximum", "mean", "median", "minimum", "reflect", "symmetric", "wrap", "empty"
+) -> np.ndarray:
+    w,h = image.shape[:2]
+    if len(shape) == 2:
+        pad = [(0, shape[0]-w), (0, shape[1]-h)]
+    elif len(shape) == 3:
+        pad = [(0, shape[0]-w), (0, shape[1]-h),(0,0)]
+    else:
+        pad = []
+    return np.pad(image.copy(), pad, padding_mode)
