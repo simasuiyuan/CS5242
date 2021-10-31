@@ -1,0 +1,27 @@
+ODS(mssql, orcale, hbase, masql) -> normalization -> ETL -> data warehouse (OLAP database: snowflake/hive)
+
+ODS(mssql, orcale, hbase, masql): Operational Data Store
+
+PROD06 -> masetr-> -> -> exec_connections : IP & port & 
+        -> table -> view -> sys.columns join sys.table => get foreign key
+                -> fab_lot_history : track out/ track in =>STEP? ->  trav_step_OID JoIN -> tale(traveler -> trav_step -> trav_step_OID)
+                -> reference 
+                -> btach join 
+                -> batch id -> lot id ( bacth -> more than one lot id ()) 
+                -> fab_lot_history_OID -> lot id (1 to 1) 
+                -> fab_lot_attr -> corr_item_OID JOIN reference -> corr_item_desc (lot attr (recipe?)): indep & corr_item_state(Active/not)
+                -> lot_geneaology -> child_lot -> parant lot id
+                -> lot_hold -> hold_status
+                -> wafer_hist
+                -> wafer wafer_geneaology : (production/ test)
+        -> SWR_DSS -> DOE settings
+        -> QDR : Quality Devation R?: impact of downstream -> trace root cause?
+        -> euipment -> equipment _hist -> status
+                    -> event_activity_history 
+                
+2 main Joins:
+    
+
+orcale: sigma -> fab_lot_history_OID!!! (foreign key to join with other ODS!)
+                -> Run OID -> summary table
+                -> Test OID -> Test_DEF
