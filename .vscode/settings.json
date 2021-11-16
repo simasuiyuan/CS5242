@@ -2,5 +2,6 @@
     "jupyter.jupyterServerType": "local",
     "cSpell.words": [
         "accuarcy"
-    ]
+    ],
+    "liveServer.settings.multiRootWorkspaceName": "CS5242"
 }
